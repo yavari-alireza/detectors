@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using Detectors.Redis.Configuration;
+﻿using Detectors.Redis.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Detectors.Redis.Controllers
 {
@@ -9,7 +10,7 @@ namespace Detectors.Redis.Controllers
     public class RedisListController : Controller
     {
         private readonly RedisConnectionConfigCollection _configuration;
-        public RedisListController(RedisConnectionConfigCollection configuration)
+        public RedisListController(RedisConnectionConfigCollection configuration, ILogger<RedisListController> logger)
         {
             _configuration = configuration;
         }
@@ -18,16 +19,15 @@ namespace Detectors.Redis.Controllers
         [HttpGet("length.{format}")]
         public IActionResult GetLength(string connectionId, string key, int dbId = -1)
         {
-            using (var redis = _configuration.BuildMultiplexer(connectionId))
-            {
-                if (redis == null)
-                    return NotFound();
-
-                var result = redis.GetDatabase(dbId).ListLength(key);
-                return Ok(result);
-            }
+                using (var redis = _configuration.BuildMultiplexer(connectionId))
+                {
+                    if (redis == null)
+                        return NotFound();
+                    var result = redis.GetDatabase(dbId).ListLength(key);
+                    return Ok(result);
+                }
         }
-        
+
         [HttpGet("index/{index}")]
         [HttpGet("index/{index}.{format}")]
         public IActionResult GetIndex(string connectionId, string key, long index, int dbId = -1)
