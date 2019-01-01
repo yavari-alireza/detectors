@@ -79,13 +79,11 @@ namespace Root
                 });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             MapDeveloperMiddleware(app, env);
             MapWebApi(app);
             MapStaticFiles(app);
-
-            loggerFactory.AddLog4Net();
 
             var secondaryApp = app.New();
             MapWebApi(secondaryApp);

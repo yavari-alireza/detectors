@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using Detectors.Redis.Configuration;
+﻿using Detectors.Redis.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Detectors.Redis.Controllers
 {
@@ -13,11 +10,9 @@ namespace Detectors.Redis.Controllers
     public class RedisListController : Controller
     {
         private readonly RedisConnectionConfigCollection _configuration;
-        private readonly ILogger _logger;
         public RedisListController(RedisConnectionConfigCollection configuration, ILogger<RedisListController> logger)
         {
             _configuration = configuration;
-            _logger = logger;
         }
 
         [HttpGet("length")]
