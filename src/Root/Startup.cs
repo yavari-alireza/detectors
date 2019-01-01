@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Root.Formatters;
 using Root.Pipeline;
@@ -78,11 +79,13 @@ namespace Root
                 });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerFactory loggerFactory)
         {
             MapDeveloperMiddleware(app, env);
             MapWebApi(app);
             MapStaticFiles(app);
+
+            loggerFactory.AddLog4Net();
 
             var secondaryApp = app.New();
             MapWebApi(secondaryApp);

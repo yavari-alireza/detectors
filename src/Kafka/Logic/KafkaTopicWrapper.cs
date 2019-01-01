@@ -78,8 +78,8 @@ namespace Detectors.Kafka.Logic
             var result = Producer.Value
                 .GetMetadata(false, TopicId, TimeSpan.FromSeconds(5))
                 .Topics.FirstOrDefault();
-            
-            if (result.Error.HasError)
+
+            if (result == null || result.Error.HasError)
                 throw new InvalidKafkaResponseException($"");
             
             return result;

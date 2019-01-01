@@ -32,12 +32,12 @@ namespace Root
                     config.AddJsonFile($"connections.{hostingEnvironment.EnvironmentName}.json", true, true);
                     config.AddEnvironmentVariables();
                 })
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
-                })
+//                .ConfigureLogging((hostingContext, logging) =>
+//                {
+//                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Log4NetCore"));
+//                    logging.AddLog4Net();
+//                    logging.AddDebug();
+//                })
                 .UseIISIntegration()
                 .UseDefaultServiceProvider((context, options) =>
                     options.ValidateScopes = context.HostingEnvironment.IsDevelopment())
