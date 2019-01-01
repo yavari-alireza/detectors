@@ -24,22 +24,13 @@ namespace Detectors.Redis.Controllers
         [HttpGet("length.{format}")]
         public IActionResult GetLength(string connectionId, string key, int dbId = -1)
         {
-            try
-            {
                 using (var redis = _configuration.BuildMultiplexer(connectionId))
                 {
                     if (redis == null)
                         return NotFound();
-
                     var result = redis.GetDatabase(dbId).ListLength(key);
                     return Ok(result);
                 }
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError("redis list length exception message", exception);
-                return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
-            }
         }
 
         [HttpGet("index/{index}")]
