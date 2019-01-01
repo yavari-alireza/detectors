@@ -4,6 +4,9 @@
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="connections.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
